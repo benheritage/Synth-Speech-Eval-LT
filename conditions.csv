@@ -1,0 +1,31 @@
+fileIndex,wavPath,imagePath,dimensions
+0,resources/col_0.wav,resources/col_0.png,coloration
+1,resources/col_1.wav,resources/col_1.png,coloration
+2,resources/col_2.wav,resources/col_2.png,coloration
+3,resources/col_3.wav,resources/col_3.png,coloration
+4,resources/col_4.wav,resources/col_4.png,coloration
+5,resources/col_5.wav,resources/col_5.png,coloration
+6,resources/dis_0.wav,resources/dis_0.png,discontinuity
+7,resources/dis_1.wav,resources/dis_1.png,discontinuity
+8,resources/dis_2.wav,resources/dis_2.png,discontinuity
+9,resources/dis_3.wav,resources/dis_3.png,discontinuity
+10,resources/dis_4.wav,resources/dis_4.png,discontinuity
+11,resources/dis_5.wav,resources/dis_5.png,discontinuity
+12,resources/loud_0.wav,resources/loud_0.png,loudness
+13,resources/loud_1.wav,resources/loud_1.png,loudness
+14,resources/loud_2.wav,resources/loud_2.png,loudness
+15,resources/loud_3.wav,resources/loud_3.png,loudness
+16,resources/loud_4.wav,resources/loud_4.png,loudness
+17,resources/loud_5.wav,resources/loud_5.png,loudness
+18,resources/mos_0.wav,resources/mos_0.png,overall quality
+19,resources/mos_1.wav,resources/mos_1.png,overall quality
+20,resources/mos_2.wav,resources/mos_2.png,overall quality
+21,resources/mos_3.wav,resources/mos_3.png,overall quality
+22,resources/mos_4.wav,resources/mos_4.png,overall quality
+23,resources/mos_5.wav,resources/mos_5.png,overall quality
+24,resources/noi_0.wav,resources/noi_0.png,noisiness
+25,resources/noi_1.wav,resources/noi_1.png,noisiness
+26,resources/noi_2.wav,resources/noi_2.png,noisiness
+27,resources/noi_3.wav,resources/noi_3.png,noisiness
+28,resources/noi_4.wav,resources/noi_4.png,noisiness
+29,resources/noi_5.wav,resources/noi_5.png,noisiness
