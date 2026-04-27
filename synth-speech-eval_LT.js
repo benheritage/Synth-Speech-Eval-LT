@@ -1680,7 +1680,7 @@ function sq_locRoutineEnd(snapshot) {
     
     psychoJS.experiment.addData('audio_file', wavPath.toString());
     psychoJS.experiment.addData('dimension', dimensions.toString());
-    psychoJS.experiment.addData('highlighted_states', overlay_opacities.toString().replace(/,/gi, " ");
+    psychoJS.experiment.addData('highlighted_states', overlay_opacities.toString().replace(/,/gi, " "));
     
     psychoJS.experiment.addData('next_trial.numClicks', next_trial.numClicks);
     psychoJS.experiment.addData('next_trial.timesOn', next_trial.timesOn);
