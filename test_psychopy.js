@@ -1,6 +1,18 @@
-﻿/********************** 
+/********************** 
  * Test_Psychopy *
  **********************/
+
+
+/**
+ * Headphones Check
+ *   automatically added using version 1.3
+ *   Mon Apr 27 2026 13:00:34 GMT+0100 (British Summer Time)
+ *   https://run.pavlovia.org/sijiazhao/headphones-check
+ * Sijia Zhao (2020-2021) sijia.zhao@psy.ox.ac.uk
+ * Read LICENSE file before using:
+ *   https://run.pavlovia.org/sijiazhao/headphones-check/LICENSE.txt
+ */
+import 'https://run.pavlovia.org/sijiazhao/headphones-check/headphonesCheck.js';
 
 import { core, data, sound, util, visual, hardware } from './lib/psychojs-2026.1.2.js';
 const { PsychoJS } = core;
@@ -9,7 +21,6 @@ const { Scheduler } = util;
 //some handy aliases as in the psychopy scripts;
 const { abs, sin, cos, PI: pi, sqrt } = Math;
 const { round } = util;
-
 
 // store info about the experiment session:
 let expName = 'test_psychopy';  // from the Builder filename that created this script
@@ -61,8 +72,6 @@ flowScheduler.add(trialsLoopBegin(trialsLoopScheduler));
 flowScheduler.add(trialsLoopScheduler);
 flowScheduler.add(trialsLoopEnd);
 
-
-
 flowScheduler.add(exit_routineRoutineBegin());
 flowScheduler.add(exit_routineRoutineEachFrame());
 flowScheduler.add(exit_routineRoutineEnd());
@@ -71,6 +80,43 @@ flowScheduler.add(quitPsychoJS, 'Thank you for your patience.', true);
 // quit if user presses Cancel in dialog box:
 dialogCancelScheduler.add(quitPsychoJS, 'Thank you for your patience.', false);
 
+// Set up a Headphones Check
+const headphonesCheck = new HeadphonesCheck({
+  checkType: 'huggins',
+  trialCount: 6,
+  passMark: 6,
+  maxAttempts: 2,
+  volumeSound: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_calibration.flac',
+  checkExample: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_example_2.flac',
+  checkSounds: [
+    {answer: 1, file: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_set1_1.flac'},
+    {answer: 2, file: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_set1_2.flac'},
+    {answer: 3, file: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_set1_3.flac'},
+    {answer: 1, file: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_set2_1.flac'},
+    {answer: 2, file: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_set2_2.flac'},
+    {answer: 3, file: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_set2_3.flac'},
+    {answer: 1, file: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_set3_1.flac'},
+    {answer: 2, file: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_set3_2.flac'},
+    {answer: 3, file: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_set3_3.flac'},
+    {answer: 1, file: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_set4_1.flac'},
+    {answer: 2, file: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_set4_2.flac'},
+    {answer: 3, file: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_set4_3.flac'},
+    {answer: 1, file: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_set5_1.flac'},
+    {answer: 2, file: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_set5_2.flac'},
+    {answer: 3, file: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_set5_3.flac'},
+    {answer: 1, file: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_set6_1.flac'},
+    {answer: 2, file: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_set6_2.flac'},
+    {answer: 3, file: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_set6_3.flac'},
+  ],
+});
+
+// Start the Headphones Check and then run handleHeadphonesCheckResult when complete
+headphonesCheck.checkHeadphones(handleHeadphonesCheckResult);
+
+// Handle the result of the Headphones Check:
+// if passed, continue the study; if failed, stop the study
+function handleHeadphonesCheckResult(result) {
+  if (result) {
 psychoJS.start({
   expName: expName,
   expInfo: expInfo,
@@ -207,9 +253,13 @@ psychoJS.start({
     {'name': 'conditions.csv', 'path': 'conditions.csv'},
   ]
 });
+  } else {
+    document.body.innerHTML = '<div style="text-align: center; font-size: 2em; color: #000; background-color: #fff; padding: 1em; margin: 1em;">' + "The study has stopped<br><div>because you failed the headphones check</div><div>Please wear headphones and retry the test again.</div>" + '</div>';
+    throw new Error('Headphones check failed. Study stopped.');
+  }
+}
 
 psychoJS.experimentLogger.setLevel(core.Logger.ServerLevel.INFO);
-
 
 var currentLoop;
 var frameDur;
@@ -219,7 +269,6 @@ async function updateInfo() {
   expInfo['expName'] = expName;
   expInfo['psychopyVersion'] = '2026.1.2';
   expInfo['OS'] = window.navigator.platform;
-
 
   // store frame rate of monitor if we can measure it successfully
   expInfo['frameRate'] = psychoJS.window.getActualFrameRate();
@@ -236,20 +285,20 @@ async function updateInfo() {
   psychoJS.experiment.dataFileName = (("." + "/") + `data/${expInfo["participant"]}_${expName}_${expInfo["date"]}`);
   psychoJS.experiment.field_separator = '\\t';
 
-
   return Scheduler.Event.NEXT;
 }
-
 
 var startClock;
 var button;
 var informationClock;
 var next_page_2;
-var Info;
+var info;
+var info_title;
 var explainationsClock;
 var next_page;
-var Definitions;
-var new_testClock;
+var defs;
+var defs_title;
+var sq_locClock;
 var progressBackground;
 var progressBar;
 var mouse;
@@ -311,7 +360,7 @@ async function experimentInit() {
     color: 'white',
     fillColor: 'darkgrey',
     borderColor: null,
-    colorSpace: 'rgb',
+    colorSpace: 'named',
     borderWidth: 0.0,
     opacity: null,
     depth: 0,
@@ -321,16 +370,56 @@ async function experimentInit() {
   });
   next_page_2.clock = new util.Clock();
   
-  Info = new visual.TextStim({
+  info = new visual.TextBox({
     win: psychoJS.window,
-    name: 'Info',
-    text: '<b>Test Information<\\b>\nDuring this test you will be asked to highlight areas on a speech sample waveform that negatively affect a particular speech sound quality quality metric.\nTo listen to the audio press the PLAY button, this will play the speech sample on a loop. You can pause this by pressing the PAUSE button.\nToggle between the DRAW/ERASE buttons to highlight the sections you deem important.\nPress NEXT to read the definitions of the speech quality metrics.',
+    name: 'info',
+    text: 'During this test you will be asked to highlight areas on a speech sample waveform that negatively affect a particular speech sound quality quality metric.\nTo listen to the audio press the 𝐏𝐋𝐀𝐘 button, this will play the speech sample on a loop. You can pause this by pressing the 𝐏𝐀𝐔𝐒𝐄 button.\nToggle between the 𝐃𝐑𝐀𝐖/𝐄𝐑𝐀𝐒𝐄 buttons to highlight the sections you deem important.\nPress 𝐍𝐄𝐗𝐓 to read the definitions of the speech quality metrics.',
+    placeholder: 'Type here...',
     font: 'Arial',
-    units: undefined, 
-    pos: [0, 0], draggable: false, height: 0.05,  wrapWidth: 1.0, ori: 0.0,
+    pos: [0, 0], 
+    draggable: false,
+    letterHeight: 0.05,
+    lineSpacing: 1.0,
+    size: [1.0, 0.4],  units: undefined, 
+    ori: 0.0,
+    color: 'black', colorSpace: 'named',
+    fillColor: undefined, borderColor: undefined,
     languageStyle: 'LTR',
-    color: new util.Color((-1.0000, -1.0000, -1.0000)),  opacity: undefined,
+    bold: false, italic: false,
+    opacity: undefined,
+    padding: 0.0,
+    alignment: 'top-left',
+    overflow: 'visible',
+    editable: false,
+    multiline: true,
+    anchor: 'center',
     depth: -1.0 
+  });
+  
+  info_title = new visual.TextBox({
+    win: psychoJS.window,
+    name: 'info_title',
+    text: '<b>Test Information</b>',
+    placeholder: 'Type here...',
+    font: 'Arial',
+    pos: [0, 0.3], 
+    draggable: false,
+    letterHeight: 0.05,
+    lineSpacing: 1.0,
+    size: [1.0, 0.4],  units: undefined, 
+    ori: 0.0,
+    color: 'black', colorSpace: 'named',
+    fillColor: undefined, borderColor: undefined,
+    languageStyle: 'LTR',
+    bold: false, italic: false,
+    opacity: undefined,
+    padding: 0.0,
+    alignment: 'center',
+    overflow: 'visible',
+    editable: false,
+    multiline: true,
+    anchor: 'center',
+    depth: -2.0 
   });
   
   // Initialize components for Routine "explainations"
@@ -349,7 +438,7 @@ async function experimentInit() {
     color: 'white',
     fillColor: 'darkgrey',
     borderColor: null,
-    colorSpace: 'rgb',
+    colorSpace: 'named',
     borderWidth: 0.0,
     opacity: null,
     depth: 0,
@@ -359,20 +448,60 @@ async function experimentInit() {
   });
   next_page.clock = new util.Clock();
   
-  Definitions = new visual.TextStim({
+  defs = new visual.TextBox({
     win: psychoJS.window,
-    name: 'Definitions',
-    text: '<b>Speech Sound Quality Definitions<\\b>\n<b>Overall Quality<\\b>: Your overall subjective perception of quality\n<b>Noisiness<\\b>: ?\n<b>Colouration<\\b>: ?\n<b>Discontinuity<\\b>: ?\n<b>Loudness<\\b>: ?',
+    name: 'defs',
+    text: '𝐎𝐯𝐞𝐫𝐚𝐥𝐥 𝐐𝐮𝐚𝐥𝐢𝐭𝐲: Overall subjective signal quality\n𝐍𝐨𝐢𝐬𝐢𝐧𝐞𝐬𝐬: Background, circuit, or coding noise\n𝐂𝐨𝐥𝐨𝐮𝐫𝐚𝐭𝐢𝐨𝐧:  Frequency response distortions\n𝐃𝐢𝐬𝐜𝐨𝐧𝐭𝐢𝐧𝐮𝐢𝐭𝐲: Isolated and non-stationary distortions\n𝐋𝐨𝐮𝐝𝐧𝐞𝐬𝐬: Speech volume affecting the overall quality',
+    placeholder: 'Type here...',
     font: 'Arial',
-    units: undefined, 
-    pos: [0, 0], draggable: false, height: 0.05,  wrapWidth: undefined, ori: 0.0,
+    pos: [0, 0], 
+    draggable: false,
+    letterHeight: 0.05,
+    lineSpacing: 1.0,
+    size: [1.0, 0.4],  units: undefined, 
+    ori: 0.0,
+    color: 'black', colorSpace: 'named',
+    fillColor: undefined, borderColor: undefined,
     languageStyle: 'LTR',
-    color: new util.Color('white'),  opacity: undefined,
+    bold: false, italic: false,
+    opacity: undefined,
+    padding: 0.0,
+    alignment: 'top-left',
+    overflow: 'visible',
+    editable: false,
+    multiline: true,
+    anchor: 'center',
     depth: -1.0 
   });
   
-  // Initialize components for Routine "new_test"
-  new_testClock = new util.Clock();
+  defs_title = new visual.TextBox({
+    win: psychoJS.window,
+    name: 'defs_title',
+    text: '<b><u>Speech Sound Quality Definitions</u></b>',
+    placeholder: 'Type here...',
+    font: 'Arial',
+    pos: [0, 0.3], 
+    draggable: false,
+    letterHeight: 0.05,
+    lineSpacing: 1.0,
+    size: [1.0, 0.4],  units: undefined, 
+    ori: 0.0,
+    color: 'black', colorSpace: 'named',
+    fillColor: undefined, borderColor: undefined,
+    languageStyle: 'LTR',
+    bold: false, italic: false,
+    opacity: undefined,
+    padding: 0.0,
+    alignment: 'center',
+    overflow: 'visible',
+    editable: false,
+    multiline: true,
+    anchor: 'center',
+    depth: -2.0 
+  });
+  
+  // Initialize components for Routine "sq_loc"
+  sq_locClock = new util.Clock();
   progressBackground = new visual.Rect ({
     win: psychoJS.window, name: 'progressBackground', 
     width: [1.2, 0.1][0], height: [1.2, 0.1][1],
@@ -598,7 +727,7 @@ async function experimentInit() {
     units: undefined, 
     pos: [0, 0], draggable: false, height: 0.05,  wrapWidth: undefined, ori: 0.0,
     languageStyle: 'LTR',
-    color: new util.Color('white'),  opacity: undefined,
+    color: new util.Color('black'),  opacity: undefined,
     depth: 0.0 
   });
   
@@ -608,7 +737,6 @@ async function experimentInit() {
   
   return Scheduler.Event.NEXT;
 }
-
 
 var t;
 var frameN;
@@ -645,7 +773,6 @@ function startRoutineBegin(snapshot) {
     return Scheduler.Event.NEXT;
   }
 }
-
 
 function startRoutineEachFrame() {
   return async function () {
@@ -725,7 +852,6 @@ function startRoutineEachFrame() {
   };
 }
 
-
 function startRoutineEnd(snapshot) {
   return async function () {
     //--- Ending Routine 'start' ---
@@ -748,7 +874,6 @@ function startRoutineEnd(snapshot) {
     return Scheduler.Event.NEXT;
   }
 }
-
 
 var informationMaxDurationReached;
 var informationMaxDuration;
@@ -774,7 +899,8 @@ function informationRoutineBegin(snapshot) {
     // keep track of which components have finished
     informationComponents = [];
     informationComponents.push(next_page_2);
-    informationComponents.push(Info);
+    informationComponents.push(info);
+    informationComponents.push(info_title);
     
     for (const thisComponent of informationComponents)
       if ('status' in thisComponent)
@@ -782,7 +908,6 @@ function informationRoutineBegin(snapshot) {
     return Scheduler.Event.NEXT;
   }
 }
-
 
 function informationRoutineEachFrame() {
   return async function () {
@@ -836,18 +961,33 @@ function informationRoutineEachFrame() {
       next_page_2.wasClicked = false;
     }
     
-    // *Info* updates
-    if (t >= 0.0 && Info.status === PsychoJS.Status.NOT_STARTED) {
+    // *info* updates
+    if (t >= 0.0 && info.status === PsychoJS.Status.NOT_STARTED) {
       // keep track of start time/frame for later
-      Info.tStart = t;  // (not accounting for frame time here)
-      Info.frameNStart = frameN;  // exact frame index
+      info.tStart = t;  // (not accounting for frame time here)
+      info.frameNStart = frameN;  // exact frame index
       
-      Info.setAutoDraw(true);
+      info.setAutoDraw(true);
     }
     
     
-    // if Info is active this frame...
-    if (Info.status === PsychoJS.Status.STARTED) {
+    // if info is active this frame...
+    if (info.status === PsychoJS.Status.STARTED) {
+    }
+    
+    
+    // *info_title* updates
+    if (t >= 0.0 && info_title.status === PsychoJS.Status.NOT_STARTED) {
+      // keep track of start time/frame for later
+      info_title.tStart = t;  // (not accounting for frame time here)
+      info_title.frameNStart = frameN;  // exact frame index
+      
+      info_title.setAutoDraw(true);
+    }
+    
+    
+    // if info_title is active this frame...
+    if (info_title.status === PsychoJS.Status.STARTED) {
     }
     
     // check for quit (typically the Esc key)
@@ -877,7 +1017,6 @@ function informationRoutineEachFrame() {
   };
 }
 
-
 function informationRoutineEnd(snapshot) {
   return async function () {
     //--- Ending Routine 'information' ---
@@ -900,7 +1039,6 @@ function informationRoutineEnd(snapshot) {
     return Scheduler.Event.NEXT;
   }
 }
-
 
 var explainationsMaxDurationReached;
 var explainationsMaxDuration;
@@ -926,7 +1064,8 @@ function explainationsRoutineBegin(snapshot) {
     // keep track of which components have finished
     explainationsComponents = [];
     explainationsComponents.push(next_page);
-    explainationsComponents.push(Definitions);
+    explainationsComponents.push(defs);
+    explainationsComponents.push(defs_title);
     
     for (const thisComponent of explainationsComponents)
       if ('status' in thisComponent)
@@ -934,7 +1073,6 @@ function explainationsRoutineBegin(snapshot) {
     return Scheduler.Event.NEXT;
   }
 }
-
 
 function explainationsRoutineEachFrame() {
   return async function () {
@@ -988,18 +1126,33 @@ function explainationsRoutineEachFrame() {
       next_page.wasClicked = false;
     }
     
-    // *Definitions* updates
-    if (t >= 0.0 && Definitions.status === PsychoJS.Status.NOT_STARTED) {
+    // *defs* updates
+    if (t >= 0.0 && defs.status === PsychoJS.Status.NOT_STARTED) {
       // keep track of start time/frame for later
-      Definitions.tStart = t;  // (not accounting for frame time here)
-      Definitions.frameNStart = frameN;  // exact frame index
+      defs.tStart = t;  // (not accounting for frame time here)
+      defs.frameNStart = frameN;  // exact frame index
       
-      Definitions.setAutoDraw(true);
+      defs.setAutoDraw(true);
     }
     
     
-    // if Definitions is active this frame...
-    if (Definitions.status === PsychoJS.Status.STARTED) {
+    // if defs is active this frame...
+    if (defs.status === PsychoJS.Status.STARTED) {
+    }
+    
+    
+    // *defs_title* updates
+    if (t >= 0.0 && defs_title.status === PsychoJS.Status.NOT_STARTED) {
+      // keep track of start time/frame for later
+      defs_title.tStart = t;  // (not accounting for frame time here)
+      defs_title.frameNStart = frameN;  // exact frame index
+      
+      defs_title.setAutoDraw(true);
+    }
+    
+    
+    // if defs_title is active this frame...
+    if (defs_title.status === PsychoJS.Status.STARTED) {
     }
     
     // check for quit (typically the Esc key)
@@ -1029,7 +1182,6 @@ function explainationsRoutineEachFrame() {
   };
 }
 
-
 function explainationsRoutineEnd(snapshot) {
   return async function () {
     //--- Ending Routine 'explainations' ---
@@ -1053,7 +1205,6 @@ function explainationsRoutineEnd(snapshot) {
   }
 }
 
-
 var trials;
 function trialsLoopBegin(trialsLoopScheduler, snapshot) {
   return async function() {
@@ -1074,9 +1225,9 @@ function trialsLoopBegin(trialsLoopScheduler, snapshot) {
     for (const thisTrial of trials) {
       snapshot = trials.getSnapshot();
       trialsLoopScheduler.add(importConditions(snapshot));
-      trialsLoopScheduler.add(new_testRoutineBegin(snapshot));
-      trialsLoopScheduler.add(new_testRoutineEachFrame());
-      trialsLoopScheduler.add(new_testRoutineEnd(snapshot));
+      trialsLoopScheduler.add(sq_locRoutineBegin(snapshot));
+      trialsLoopScheduler.add(sq_locRoutineEachFrame());
+      trialsLoopScheduler.add(sq_locRoutineEnd(snapshot));
       trialsLoopScheduler.add(feedbackRoutineBegin(snapshot));
       trialsLoopScheduler.add(feedbackRoutineEachFrame());
       trialsLoopScheduler.add(feedbackRoutineEnd(snapshot));
@@ -1086,7 +1237,6 @@ function trialsLoopBegin(trialsLoopScheduler, snapshot) {
     return Scheduler.Event.NEXT;
   }
 }
-
 
 async function trialsLoopEnd() {
   // terminate loop
@@ -1098,7 +1248,6 @@ async function trialsLoopEnd() {
     currentLoop = psychoJS.experiment;  // so we use addData from the experiment
   return Scheduler.Event.NEXT;
 }
-
 
 function trialsLoopEndIteration(scheduler, snapshot) {
   // ------Prepare for next entry------
@@ -1119,8 +1268,7 @@ function trialsLoopEndIteration(scheduler, snapshot) {
   };
 }
 
-
-var new_testMaxDurationReached;
+var sq_locMaxDurationReached;
 var gotValidClick;
 var playButton;
 var drawButton;
@@ -1141,21 +1289,21 @@ var dimension_text;
 var dimension_feedback_text;
 var q_num_var_text;
 var overlay_opacities;
-var new_testMaxDuration;
-var new_testComponents;
-function new_testRoutineBegin(snapshot) {
+var sq_locMaxDuration;
+var sq_locComponents;
+function sq_locRoutineBegin(snapshot) {
   return async function () {
     TrialHandler.fromSnapshot(snapshot); // ensure that .thisN vals are up to date
     
-    //--- Prepare to start Routine 'new_test' ---
+    //--- Prepare to start Routine 'sq_loc' ---
     t = 0;
     frameN = -1;
     continueRoutine = true; // until we're told otherwise
     // keep track of whether this Routine was forcibly ended
     routineForceEnded = false;
-    new_testClock.reset();
+    sq_locClock.reset();
     routineTimer.reset();
-    new_testMaxDurationReached = false;
+    sq_locMaxDurationReached = false;
     // update component parameters for each repeat
     // setup some python lists for storing info about the mouse
     // current position of the mouse:
@@ -1261,8 +1409,8 @@ function new_testRoutineBegin(snapshot) {
     
     first_frame = true;
     
-    dimension_text = "Listen to the following speech sample and highlight all areas on the waveform that denote <b>" + dimensions + "<\b>.";
-    dimension_feedback_text = "To what extent did the <b>" + dimensions + "<\b> in the previous sample negatively effect your overall impression of the quality?"
+    dimension_text = "Listen to the following speech sample and highlight all areas on the waveform that denote " + dimensions + ".";
+    dimension_feedback_text = "To what extent did the " + dimensions + " in the previous sample negatively effect your overall impression of the quality?"
     let num_trial = trials.thisN + 1
     q_num_var_text = "Q. (" + num_trial + ")";
     
@@ -1271,34 +1419,33 @@ function new_testRoutineBegin(snapshot) {
     q_num.setText(q_num_var_text);
     // reset next_trial to account for continued clicks & clear times on/off
     next_trial.reset()
-    psychoJS.experiment.addData('new_test.started', globalClock.getTime());
-    new_testMaxDuration = null
+    psychoJS.experiment.addData('sq_loc.started', globalClock.getTime());
+    sq_locMaxDuration = null
     // keep track of which components have finished
-    new_testComponents = [];
-    new_testComponents.push(progressBackground);
-    new_testComponents.push(progressBar);
-    new_testComponents.push(mouse);
-    new_testComponents.push(image);
-    new_testComponents.push(text);
-    new_testComponents.push(q_num);
-    new_testComponents.push(next_trial);
+    sq_locComponents = [];
+    sq_locComponents.push(progressBackground);
+    sq_locComponents.push(progressBar);
+    sq_locComponents.push(mouse);
+    sq_locComponents.push(image);
+    sq_locComponents.push(text);
+    sq_locComponents.push(q_num);
+    sq_locComponents.push(next_trial);
     
-    for (const thisComponent of new_testComponents)
+    for (const thisComponent of sq_locComponents)
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
     return Scheduler.Event.NEXT;
   }
 }
 
-
 var prevButtonState;
 var _mouseButtons;
 var _mouseXYs;
-function new_testRoutineEachFrame() {
+function sq_locRoutineEachFrame() {
   return async function () {
-    //--- Loop for each frame of Routine 'new_test' ---
+    //--- Loop for each frame of Routine 'sq_loc' ---
     // get current time
-    t = new_testClock.getTime();
+    t = sq_locClock.getTime();
     frameN = frameN + 1;// number of completed frames (so 0 is the first frame)
     // update/draw components on each frame
     
@@ -1561,7 +1708,7 @@ function new_testRoutineEachFrame() {
     }
     
     continueRoutine = false;  // reverts to True if at least one component still running
-    for (const thisComponent of new_testComponents)
+    for (const thisComponent of sq_locComponents)
       if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
         continueRoutine = true;
         break;
@@ -1576,16 +1723,15 @@ function new_testRoutineEachFrame() {
   };
 }
 
-
-function new_testRoutineEnd(snapshot) {
+function sq_locRoutineEnd(snapshot) {
   return async function () {
-    //--- Ending Routine 'new_test' ---
-    for (const thisComponent of new_testComponents) {
+    //--- Ending Routine 'sq_loc' ---
+    for (const thisComponent of sq_locComponents) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
     }
-    psychoJS.experiment.addData('new_test.stopped', globalClock.getTime());
+    psychoJS.experiment.addData('sq_loc.stopped', globalClock.getTime());
     // store data for psychoJS.experiment (ExperimentHandler)
     psychoJS.experiment.addData('mouse.x', mouse.x);
     psychoJS.experiment.addData('mouse.y', mouse.y);
@@ -1611,7 +1757,7 @@ function new_testRoutineEnd(snapshot) {
     psychoJS.experiment.addData('next_trial.numClicks', next_trial.numClicks);
     psychoJS.experiment.addData('next_trial.timesOn', next_trial.timesOn);
     psychoJS.experiment.addData('next_trial.timesOff', next_trial.timesOff);
-    // the Routine "new_test" was not non-slip safe, so reset the non-slip timer
+    // the Routine "sq_loc" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset();
     
     // Routines running outside a loop should always advance the datafile row
@@ -1621,7 +1767,6 @@ function new_testRoutineEnd(snapshot) {
     return Scheduler.Event.NEXT;
   }
 }
-
 
 var feedbackMaxDurationReached;
 var feedbackMaxDuration;
@@ -1664,7 +1809,6 @@ function feedbackRoutineBegin(snapshot) {
     return Scheduler.Event.NEXT;
   }
 }
-
 
 function feedbackRoutineEachFrame() {
   return async function () {
@@ -1819,7 +1963,6 @@ function feedbackRoutineEachFrame() {
   };
 }
 
-
 function feedbackRoutineEnd(snapshot) {
   return async function () {
     //--- Ending Routine 'feedback' ---
@@ -1845,7 +1988,6 @@ function feedbackRoutineEnd(snapshot) {
     return Scheduler.Event.NEXT;
   }
 }
-
 
 var exit_routineMaxDurationReached;
 var exit_routineMaxDuration;
@@ -1900,7 +2042,6 @@ function exit_routineRoutineBegin(snapshot) {
   }
 }
 
-
 function exit_routineRoutineEachFrame() {
   return async function () {
     //--- Loop for each frame of Routine 'exit_routine' ---
@@ -1950,7 +2091,6 @@ function exit_routineRoutineEachFrame() {
   };
 }
 
-
 function exit_routineRoutineEnd(snapshot) {
   return async function () {
     //--- Ending Routine 'exit_routine' ---
@@ -1971,14 +2111,12 @@ function exit_routineRoutineEnd(snapshot) {
   }
 }
 
-
 function importConditions(currentLoop) {
   return async function () {
     psychoJS.importAttributes(currentLoop.getCurrentTrial());
     return Scheduler.Event.NEXT;
     };
 }
-
 
 async function quitPsychoJS(message, isCompleted) {
   // Check for and save orphaned data
