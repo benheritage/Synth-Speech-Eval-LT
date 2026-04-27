@@ -6,7 +6,7 @@
 /**
  * Headphones Check
  *   automatically added using version 1.3
- *   Mon Apr 27 2026 17:32:18 GMT+0100 (British Summer Time)
+ *   Mon Apr 27 2026 18:04:21 GMT+0100 (British Summer Time)
  *   https://run.pavlovia.org/sijiazhao/headphones-check
  * Sijia Zhao (2020-2021) sijia.zhao@psy.ox.ac.uk
  * Read LICENSE file before using:
@@ -260,6 +260,8 @@ psychoJS.start({
 
 psychoJS.experimentLogger.setLevel(core.Logger.ServerLevel.INFO);
 
+var currentLoop;
+var frameDur;
 async function updateInfo() {
   currentLoop = psychoJS.experiment;  // right now there are no loops
   expInfo['date'] = util.MonotonicClock.getDateStr();  // add a simple timestamp
@@ -285,6 +287,35 @@ async function updateInfo() {
   return Scheduler.Event.NEXT;
 }
 
+var startClock;
+var button;
+var informationClock;
+var next_page_2;
+var info;
+var info_title;
+var explainationsClock;
+var next_page;
+var defs;
+var defs_title;
+var sq_locClock;
+var progressBackground;
+var progressBar;
+var mouse;
+var image;
+var text;
+var q_num;
+var next_trial;
+var feedbackClock;
+var slider;
+var text_2;
+var q_num_2;
+var next_trial_2;
+var any_feedback;
+var input_comments;
+var exit_routineClock;
+var text_3;
+var globalClock;
+var routineTimer;
 async function experimentInit() {
   // Initialize components for Routine "start"
   startClock = new util.Clock();
@@ -706,6 +737,13 @@ async function experimentInit() {
   return Scheduler.Event.NEXT;
 }
 
+var t;
+var frameN;
+var continueRoutine;
+var routineForceEnded;
+var startMaxDurationReached;
+var startMaxDuration;
+var startComponents;
 function startRoutineBegin(snapshot) {
   return async function () {
     TrialHandler.fromSnapshot(snapshot); // ensure that .thisN vals are up to date
@@ -836,6 +874,9 @@ function startRoutineEnd(snapshot) {
   }
 }
 
+var informationMaxDurationReached;
+var informationMaxDuration;
+var informationComponents;
 function informationRoutineBegin(snapshot) {
   return async function () {
     TrialHandler.fromSnapshot(snapshot); // ensure that .thisN vals are up to date
@@ -998,6 +1039,9 @@ function informationRoutineEnd(snapshot) {
   }
 }
 
+var explainationsMaxDurationReached;
+var explainationsMaxDuration;
+var explainationsComponents;
 function explainationsRoutineBegin(snapshot) {
   return async function () {
     TrialHandler.fromSnapshot(snapshot); // ensure that .thisN vals are up to date
@@ -1160,6 +1204,7 @@ function explainationsRoutineEnd(snapshot) {
   }
 }
 
+var trials;
 function trialsLoopBegin(trialsLoopScheduler, snapshot) {
   return async function() {
     TrialHandler.fromSnapshot(snapshot); // update internal variables (.thisN etc) of the loop
@@ -1222,6 +1267,29 @@ function trialsLoopEndIteration(scheduler, snapshot) {
   };
 }
 
+var sq_locMaxDurationReached;
+var gotValidClick;
+var playButton;
+var drawButton;
+var eraseButton;
+var mySound;
+var n_rects;
+var width_overlay;
+var highest_val_selected;
+var lowest_val_selected;
+var isPlaying;
+var isClicked;
+var isDrawing;
+var time;
+var myRectangleOutline;
+var myRectangles;
+var first_frame;
+var dimension_text;
+var dimension_feedback_text;
+var q_num_var_text;
+var overlay_opacities;
+var sq_locMaxDuration;
+var sq_locComponents;
 function sq_locRoutineBegin(snapshot) {
   return async function () {
     TrialHandler.fromSnapshot(snapshot); // ensure that .thisN vals are up to date
@@ -1369,6 +1437,9 @@ function sq_locRoutineBegin(snapshot) {
   }
 }
 
+var prevButtonState;
+var _mouseButtons;
+var _mouseXYs;
 function sq_locRoutineEachFrame() {
   return async function () {
     //--- Loop for each frame of Routine 'sq_loc' ---
@@ -1696,6 +1767,9 @@ function sq_locRoutineEnd(snapshot) {
   }
 }
 
+var feedbackMaxDurationReached;
+var feedbackMaxDuration;
+var feedbackComponents;
 function feedbackRoutineBegin(snapshot) {
   return async function () {
     TrialHandler.fromSnapshot(snapshot); // ensure that .thisN vals are up to date
@@ -1914,6 +1988,9 @@ function feedbackRoutineEnd(snapshot) {
   }
 }
 
+var exit_routineMaxDurationReached;
+var exit_routineMaxDuration;
+var exit_routineComponents;
 function exit_routineRoutineBegin(snapshot) {
   return async function () {
     TrialHandler.fromSnapshot(snapshot); // ensure that .thisN vals are up to date
