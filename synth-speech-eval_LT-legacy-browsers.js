@@ -225,7 +225,7 @@ async function updateInfo() {
 
   
   psychoJS.experiment.dataFileName = (("." + "/") + `data/${expInfo["participant"]}_${expName}_${expInfo["date"]}`);
-  psychoJS.experiment.field_separator = '\\t';
+  psychoJS.experiment.field_separator = ',';
 
 
   return Scheduler.Event.NEXT;
@@ -1976,7 +1976,7 @@ function exit_routineRoutineBegin(snapshot) {
     exit_routineMaxDurationReached = false;
     // update component parameters for each repeat
     psychoJS._saveResults = 0;
-    let filename = psychoJS.experiment._experimentName + "_" + psychoJS._experiment._datetime + ".tsv";
+    let filename = psychoJS.experiment._experimentName + "_" + psychoJS._experiment._datetime + ".csv";
     let dataObj = psychoJS._experiment._trialsData;
     let data = [Object.keys(dataObj[0])].concat(dataObj).map(it => {
         return Object.values(it).toString()
