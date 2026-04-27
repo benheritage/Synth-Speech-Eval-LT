@@ -201,9 +201,6 @@ psychoJS.start({
 
 psychoJS.experimentLogger.setLevel(core.Logger.ServerLevel.INFO);
 
-
-var currentLoop;
-var frameDur;
 async function updateInfo() {
   currentLoop = psychoJS.experiment;  // right now there are no loops
   expInfo['date'] = util.MonotonicClock.getDateStr();  // add a simple timestamp
@@ -231,36 +228,6 @@ async function updateInfo() {
   return Scheduler.Event.NEXT;
 }
 
-
-var startClock;
-var button;
-var informationClock;
-var next_page_2;
-var info;
-var info_title;
-var explainationsClock;
-var next_page;
-var defs;
-var defs_title;
-var sq_locClock;
-var progressBackground;
-var progressBar;
-var mouse;
-var image;
-var text;
-var q_num;
-var next_trial;
-var feedbackClock;
-var slider;
-var text_2;
-var q_num_2;
-var next_trial_2;
-var any_feedback;
-var input_comments;
-var exit_routineClock;
-var text_3;
-var globalClock;
-var routineTimer;
 async function experimentInit() {
   // Initialize components for Routine "start"
   startClock = new util.Clock();
@@ -682,14 +649,6 @@ async function experimentInit() {
   return Scheduler.Event.NEXT;
 }
 
-
-var t;
-var frameN;
-var continueRoutine;
-var routineForceEnded;
-var startMaxDurationReached;
-var startMaxDuration;
-var startComponents;
 function startRoutineBegin(snapshot) {
   return async function () {
     TrialHandler.fromSnapshot(snapshot); // ensure that .thisN vals are up to date
@@ -719,7 +678,6 @@ function startRoutineBegin(snapshot) {
     return Scheduler.Event.NEXT;
   }
 }
-
 
 function startRoutineEachFrame() {
   return async function () {
@@ -799,7 +757,6 @@ function startRoutineEachFrame() {
   };
 }
 
-
 function startRoutineEnd(snapshot) {
   return async function () {
     //--- Ending Routine 'start' ---
@@ -823,10 +780,6 @@ function startRoutineEnd(snapshot) {
   }
 }
 
-
-var informationMaxDurationReached;
-var informationMaxDuration;
-var informationComponents;
 function informationRoutineBegin(snapshot) {
   return async function () {
     TrialHandler.fromSnapshot(snapshot); // ensure that .thisN vals are up to date
@@ -858,7 +811,6 @@ function informationRoutineBegin(snapshot) {
     return Scheduler.Event.NEXT;
   }
 }
-
 
 function informationRoutineEachFrame() {
   return async function () {
@@ -968,7 +920,6 @@ function informationRoutineEachFrame() {
   };
 }
 
-
 function informationRoutineEnd(snapshot) {
   return async function () {
     //--- Ending Routine 'information' ---
@@ -992,10 +943,6 @@ function informationRoutineEnd(snapshot) {
   }
 }
 
-
-var explainationsMaxDurationReached;
-var explainationsMaxDuration;
-var explainationsComponents;
 function explainationsRoutineBegin(snapshot) {
   return async function () {
     TrialHandler.fromSnapshot(snapshot); // ensure that .thisN vals are up to date
@@ -1027,7 +974,6 @@ function explainationsRoutineBegin(snapshot) {
     return Scheduler.Event.NEXT;
   }
 }
-
 
 function explainationsRoutineEachFrame() {
   return async function () {
@@ -1137,7 +1083,6 @@ function explainationsRoutineEachFrame() {
   };
 }
 
-
 function explainationsRoutineEnd(snapshot) {
   return async function () {
     //--- Ending Routine 'explainations' ---
@@ -1161,8 +1106,6 @@ function explainationsRoutineEnd(snapshot) {
   }
 }
 
-
-var trials;
 function trialsLoopBegin(trialsLoopScheduler, snapshot) {
   return async function() {
     TrialHandler.fromSnapshot(snapshot); // update internal variables (.thisN etc) of the loop
@@ -1196,7 +1139,6 @@ function trialsLoopBegin(trialsLoopScheduler, snapshot) {
   }
 }
 
-
 async function trialsLoopEnd() {
   // terminate loop
   psychoJS.experiment.removeLoop(trials);
@@ -1207,7 +1149,6 @@ async function trialsLoopEnd() {
     currentLoop = psychoJS.experiment;  // so we use addData from the experiment
   return Scheduler.Event.NEXT;
 }
-
 
 function trialsLoopEndIteration(scheduler, snapshot) {
   // ------Prepare for next entry------
@@ -1228,30 +1169,6 @@ function trialsLoopEndIteration(scheduler, snapshot) {
   };
 }
 
-
-var sq_locMaxDurationReached;
-var gotValidClick;
-var playButton;
-var drawButton;
-var eraseButton;
-var mySound;
-var n_rects;
-var width_overlay;
-var highest_val_selected;
-var lowest_val_selected;
-var isPlaying;
-var isClicked;
-var isDrawing;
-var time;
-var myRectangleOutline;
-var myRectangles;
-var first_frame;
-var dimension_text;
-var dimension_feedback_text;
-var q_num_var_text;
-var overlay_opacities;
-var sq_locMaxDuration;
-var sq_locComponents;
 function sq_locRoutineBegin(snapshot) {
   return async function () {
     TrialHandler.fromSnapshot(snapshot); // ensure that .thisN vals are up to date
@@ -1400,10 +1317,6 @@ function sq_locRoutineBegin(snapshot) {
   }
 }
 
-
-var prevButtonState;
-var _mouseButtons;
-var _mouseXYs;
 function sq_locRoutineEachFrame() {
   return async function () {
     //--- Loop for each frame of Routine 'sq_loc' ---
@@ -1686,7 +1599,6 @@ function sq_locRoutineEachFrame() {
   };
 }
 
-
 function sq_locRoutineEnd(snapshot) {
   return async function () {
     //--- Ending Routine 'sq_loc' ---
@@ -1716,7 +1628,7 @@ function sq_locRoutineEnd(snapshot) {
     
     psychoJS.experiment.addData('audio_file', wavPath.toString());
     psychoJS.experiment.addData('dimension', dimensions.toString());
-    psychoJS.experiment.addData('highlighted_states', overlay_opacities.toString());
+    psychoJS.experiment.addData('highlighted_states', overlay_opacities.toString().replace(/,/gi, " ");
     
     psychoJS.experiment.addData('next_trial.numClicks', next_trial.numClicks);
     psychoJS.experiment.addData('next_trial.timesOn', next_trial.timesOn);
@@ -1732,10 +1644,6 @@ function sq_locRoutineEnd(snapshot) {
   }
 }
 
-
-var feedbackMaxDurationReached;
-var feedbackMaxDuration;
-var feedbackComponents;
 function feedbackRoutineBegin(snapshot) {
   return async function () {
     TrialHandler.fromSnapshot(snapshot); // ensure that .thisN vals are up to date
@@ -1775,7 +1683,6 @@ function feedbackRoutineBegin(snapshot) {
     return Scheduler.Event.NEXT;
   }
 }
-
 
 function feedbackRoutineEachFrame() {
   return async function () {
@@ -1930,7 +1837,6 @@ function feedbackRoutineEachFrame() {
   };
 }
 
-
 function feedbackRoutineEnd(snapshot) {
   return async function () {
     //--- Ending Routine 'feedback' ---
@@ -1957,10 +1863,6 @@ function feedbackRoutineEnd(snapshot) {
   }
 }
 
-
-var exit_routineMaxDurationReached;
-var exit_routineMaxDuration;
-var exit_routineComponents;
 function exit_routineRoutineBegin(snapshot) {
   return async function () {
     TrialHandler.fromSnapshot(snapshot); // ensure that .thisN vals are up to date
@@ -1976,7 +1878,7 @@ function exit_routineRoutineBegin(snapshot) {
     exit_routineMaxDurationReached = false;
     // update component parameters for each repeat
     psychoJS._saveResults = 0;
-    let filename = psychoJS.experiment._experimentName + "_" + psychoJS._experiment._datetime + ".csv";
+    let filename = psychoJS.experiment._experimentName + "_" + psychoJS._experiment._datetime + ".tsv";
     let dataObj = psychoJS._experiment._trialsData;
     let data = [Object.keys(dataObj[0])].concat(dataObj).map(it => {
         return Object.values(it).toString()
@@ -2011,7 +1913,6 @@ function exit_routineRoutineBegin(snapshot) {
     return Scheduler.Event.NEXT;
   }
 }
-
 
 function exit_routineRoutineEachFrame() {
   return async function () {
@@ -2062,7 +1963,6 @@ function exit_routineRoutineEachFrame() {
   };
 }
 
-
 function exit_routineRoutineEnd(snapshot) {
   return async function () {
     //--- Ending Routine 'exit_routine' ---
@@ -2083,14 +1983,12 @@ function exit_routineRoutineEnd(snapshot) {
   }
 }
 
-
 function importConditions(currentLoop) {
   return async function () {
     psychoJS.importAttributes(currentLoop.getCurrentTrial());
     return Scheduler.Event.NEXT;
     };
 }
-
 
 async function quitPsychoJS(message, isCompleted) {
   // Check for and save orphaned data
