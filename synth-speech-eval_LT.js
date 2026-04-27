@@ -1,6 +1,18 @@
-﻿/***************************** 
+/***************************** 
  * Synth-Speech-Eval_Lt *
  *****************************/
+
+
+/**
+ * Headphones Check
+ *   automatically added using version 1.3
+ *   Mon Apr 27 2026 17:08:43 GMT+0100 (British Summer Time)
+ *   https://run.pavlovia.org/sijiazhao/headphones-check
+ * Sijia Zhao (2020-2021) sijia.zhao@psy.ox.ac.uk
+ * Read LICENSE file before using:
+ *   https://run.pavlovia.org/sijiazhao/headphones-check/LICENSE.txt
+ */
+import 'https://run.pavlovia.org/sijiazhao/headphones-check/headphonesCheck.js';
 
 import { core, data, sound, util, visual, hardware } from './lib/psychojs-2026.1.2.js';
 const { PsychoJS } = core;
@@ -9,7 +21,6 @@ const { Scheduler } = util;
 //some handy aliases as in the psychopy scripts;
 const { abs, sin, cos, PI: pi, sqrt } = Math;
 const { round } = util;
-
 
 // store info about the experiment session:
 let expName = 'synth-speech-eval_LT';  // from the Builder filename that created this script
@@ -60,8 +71,6 @@ flowScheduler.add(trialsLoopBegin(trialsLoopScheduler));
 flowScheduler.add(trialsLoopScheduler);
 flowScheduler.add(trialsLoopEnd);
 
-
-
 flowScheduler.add(exit_routineRoutineBegin());
 flowScheduler.add(exit_routineRoutineEachFrame());
 flowScheduler.add(exit_routineRoutineEnd());
@@ -70,6 +79,43 @@ flowScheduler.add(quitPsychoJS, 'Thank you for your patience.', true);
 // quit if user presses Cancel in dialog box:
 dialogCancelScheduler.add(quitPsychoJS, 'Thank you for your patience.', false);
 
+// Set up a Headphones Check
+const headphonesCheck = new HeadphonesCheck({
+  checkType: 'huggins',
+  trialCount: 6,
+  passMark: 6,
+  maxAttempts: 3,
+  volumeSound: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_calibration.flac',
+  checkExample: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_example_2.flac',
+  checkSounds: [
+    {answer: 1, file: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_set1_1.flac'},
+    {answer: 2, file: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_set1_2.flac'},
+    {answer: 3, file: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_set1_3.flac'},
+    {answer: 1, file: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_set2_1.flac'},
+    {answer: 2, file: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_set2_2.flac'},
+    {answer: 3, file: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_set2_3.flac'},
+    {answer: 1, file: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_set3_1.flac'},
+    {answer: 2, file: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_set3_2.flac'},
+    {answer: 3, file: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_set3_3.flac'},
+    {answer: 1, file: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_set4_1.flac'},
+    {answer: 2, file: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_set4_2.flac'},
+    {answer: 3, file: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_set4_3.flac'},
+    {answer: 1, file: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_set5_1.flac'},
+    {answer: 2, file: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_set5_2.flac'},
+    {answer: 3, file: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_set5_3.flac'},
+    {answer: 1, file: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_set6_1.flac'},
+    {answer: 2, file: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_set6_2.flac'},
+    {answer: 3, file: 'https://run.pavlovia.org/sijiazhao/headphones-check/stimuli_HugginsPitch/HugginsPitch_set6_3.flac'},
+  ],
+});
+
+// Start the Headphones Check and then run handleHeadphonesCheckResult when complete
+headphonesCheck.checkHeadphones(handleHeadphonesCheckResult);
+
+// Handle the result of the Headphones Check:
+// if passed, continue the study; if failed, stop the study
+function handleHeadphonesCheckResult(result) {
+  if (result) {
 psychoJS.start({
   expName: expName,
   expInfo: expInfo,
@@ -206,9 +252,13 @@ psychoJS.start({
     {'name': 'conditions.csv', 'path': 'conditions.csv'},
   ]
 });
+  } else {
+    document.body.innerHTML = '<div style="text-align: center; font-size: 2em; color: #000; background-color: #fff; padding: 1em; margin: 1em;">' + "The study has stopped<br>because you failed the headphones check." + '</div>';
+    throw new Error('Headphones check failed. Study stopped.');
+  }
+}
 
 psychoJS.experimentLogger.setLevel(core.Logger.ServerLevel.INFO);
-
 
 var currentLoop;
 var frameDur;
@@ -218,7 +268,6 @@ async function updateInfo() {
   expInfo['expName'] = expName;
   expInfo['psychopyVersion'] = '2026.1.2';
   expInfo['OS'] = window.navigator.platform;
-
 
   // store frame rate of monitor if we can measure it successfully
   expInfo['frameRate'] = psychoJS.window.getActualFrameRate();
@@ -235,10 +284,8 @@ async function updateInfo() {
   psychoJS.experiment.dataFileName = (("." + "/") + `data/${expInfo["participant"]}_${expName}_${expInfo["date"]}`);
   psychoJS.experiment.field_separator = '\\t';
 
-
   return Scheduler.Event.NEXT;
 }
-
 
 var startClock;
 var button;
@@ -690,7 +737,6 @@ async function experimentInit() {
   return Scheduler.Event.NEXT;
 }
 
-
 var t;
 var frameN;
 var continueRoutine;
@@ -726,7 +772,6 @@ function startRoutineBegin(snapshot) {
     return Scheduler.Event.NEXT;
   }
 }
-
 
 function startRoutineEachFrame() {
   return async function () {
@@ -806,7 +851,6 @@ function startRoutineEachFrame() {
   };
 }
 
-
 function startRoutineEnd(snapshot) {
   return async function () {
     //--- Ending Routine 'start' ---
@@ -829,7 +873,6 @@ function startRoutineEnd(snapshot) {
     return Scheduler.Event.NEXT;
   }
 }
-
 
 var informationMaxDurationReached;
 var informationMaxDuration;
@@ -864,7 +907,6 @@ function informationRoutineBegin(snapshot) {
     return Scheduler.Event.NEXT;
   }
 }
-
 
 function informationRoutineEachFrame() {
   return async function () {
@@ -974,7 +1016,6 @@ function informationRoutineEachFrame() {
   };
 }
 
-
 function informationRoutineEnd(snapshot) {
   return async function () {
     //--- Ending Routine 'information' ---
@@ -997,7 +1038,6 @@ function informationRoutineEnd(snapshot) {
     return Scheduler.Event.NEXT;
   }
 }
-
 
 var explainationsMaxDurationReached;
 var explainationsMaxDuration;
@@ -1032,7 +1072,6 @@ function explainationsRoutineBegin(snapshot) {
     return Scheduler.Event.NEXT;
   }
 }
-
 
 function explainationsRoutineEachFrame() {
   return async function () {
@@ -1142,7 +1181,6 @@ function explainationsRoutineEachFrame() {
   };
 }
 
-
 function explainationsRoutineEnd(snapshot) {
   return async function () {
     //--- Ending Routine 'explainations' ---
@@ -1165,7 +1203,6 @@ function explainationsRoutineEnd(snapshot) {
     return Scheduler.Event.NEXT;
   }
 }
-
 
 var trials;
 function trialsLoopBegin(trialsLoopScheduler, snapshot) {
@@ -1200,7 +1237,6 @@ function trialsLoopBegin(trialsLoopScheduler, snapshot) {
   }
 }
 
-
 async function trialsLoopEnd() {
   // terminate loop
   psychoJS.experiment.removeLoop(trials);
@@ -1211,7 +1247,6 @@ async function trialsLoopEnd() {
     currentLoop = psychoJS.experiment;  // so we use addData from the experiment
   return Scheduler.Event.NEXT;
 }
-
 
 function trialsLoopEndIteration(scheduler, snapshot) {
   // ------Prepare for next entry------
@@ -1231,7 +1266,6 @@ function trialsLoopEndIteration(scheduler, snapshot) {
     }
   };
 }
-
 
 var sq_locMaxDurationReached;
 var gotValidClick;
@@ -1402,7 +1436,6 @@ function sq_locRoutineBegin(snapshot) {
     return Scheduler.Event.NEXT;
   }
 }
-
 
 var prevButtonState;
 var _mouseButtons;
@@ -1689,7 +1722,6 @@ function sq_locRoutineEachFrame() {
   };
 }
 
-
 function sq_locRoutineEnd(snapshot) {
   return async function () {
     //--- Ending Routine 'sq_loc' ---
@@ -1735,7 +1767,6 @@ function sq_locRoutineEnd(snapshot) {
   }
 }
 
-
 var feedbackMaxDurationReached;
 var feedbackMaxDuration;
 var feedbackComponents;
@@ -1777,7 +1808,6 @@ function feedbackRoutineBegin(snapshot) {
     return Scheduler.Event.NEXT;
   }
 }
-
 
 function feedbackRoutineEachFrame() {
   return async function () {
@@ -1932,7 +1962,6 @@ function feedbackRoutineEachFrame() {
   };
 }
 
-
 function feedbackRoutineEnd(snapshot) {
   return async function () {
     //--- Ending Routine 'feedback' ---
@@ -1958,7 +1987,6 @@ function feedbackRoutineEnd(snapshot) {
     return Scheduler.Event.NEXT;
   }
 }
-
 
 var exit_routineMaxDurationReached;
 var exit_routineMaxDuration;
@@ -2013,7 +2041,6 @@ function exit_routineRoutineBegin(snapshot) {
   }
 }
 
-
 function exit_routineRoutineEachFrame() {
   return async function () {
     //--- Loop for each frame of Routine 'exit_routine' ---
@@ -2063,7 +2090,6 @@ function exit_routineRoutineEachFrame() {
   };
 }
 
-
 function exit_routineRoutineEnd(snapshot) {
   return async function () {
     //--- Ending Routine 'exit_routine' ---
@@ -2084,14 +2110,12 @@ function exit_routineRoutineEnd(snapshot) {
   }
 }
 
-
 function importConditions(currentLoop) {
   return async function () {
     psychoJS.importAttributes(currentLoop.getCurrentTrial());
     return Scheduler.Event.NEXT;
     };
 }
-
 
 async function quitPsychoJS(message, isCompleted) {
   // Check for and save orphaned data
